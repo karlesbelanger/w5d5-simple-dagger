@@ -8,6 +8,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 
 /**
  * Created by evin on 4/28/16.
@@ -29,5 +31,18 @@ public class SharedModule {
     SharedPreferences providesSharedPreferences(Application application) {
         return PreferenceManager.getDefaultSharedPreferences(application);
     }
-
+    @Provides
+    @Singleton
+        // Application reference must come from AppModule.class
+    OkHttpClient providesOkHttpClient() {
+        return new OkHttpClient();
+    }
+    @Provides
+    @Singleton
+        // Application reference must come from AppModule.class
+    Request providesOkHttpClientRequest() {
+        return  new Request.Builder()
+                .url("http://google.com")
+                .build();
+    }
 }
